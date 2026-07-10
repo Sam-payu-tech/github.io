@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Samuel Garcia — Mechanical Engineering &amp; Robotics</title>
+<style>
+
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap');
+
+  :root{
+    --blueprint: #16283C;
+    --blueprint-deep: #0F1D2E;
+    --line: #7EC8E3;
+    --line-dim: #3E5A72;
+    --paper: #F3F1E9;
+    --paper-dim: #E4E0D2;
+    --graphite: #232A32;
+    --safety: #E15B2D;
+    --safety-dim: #B44A24;
+
+    --display: 'Space Grotesk', sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
+    --body: 'Inter', sans-serif;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background:var(--blueprint);
+    color:var(--paper);
+    font-family:var(--body);
+    line-height:1.6;
+    background-image:
+      linear-gradient(var(--line-dim) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line-dim) 1px, transparent 1px);
+    background-size: 42px 42px;
+    background-attachment:fixed;
+    background-color:var(--blueprint);
+    background-blend-mode: overlay;
+    opacity:1;
+  }
+
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:var(--blueprint);
+    opacity:0.94;
+    z-index:-1;
+  }
+
+  a{ color:inherit; text-decoration:none; }
+
+  .wrap{ max-width:1040px; margin:0 auto; padding:0 28px; }
+
+  /* ---------- utility label / eyebrow ---------- */
+  .tag{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--line);
+  }
+
+  /* ---------- header / nav ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(15,29,46,0.88);
+    backdrop-filter: blur(6px);
+    border-bottom:1px solid var(--line-dim);
+  }
+  header .wrap{
+    display:flex; justify-content:space-between; align-items:center;
+    padding-top:16px; padding-bottom:16px;
+  }
+  .brand{
+    font-family:var(--mono);
+    font-size:14px;
+    letter-spacing:0.05em;
+    color:var(--paper);
+  }
+  .brand span{ color:var(--safety); }
+  nav ul{
+    display:flex; gap:28px; list-style:none;
+    font-family:var(--mono); font-size:12px;
+    letter-spacing:0.08em; text-transform:uppercase;
+  }
+  nav a{ color:var(--line-dim); transition:color .2s; }
+  nav a:hover{ color:var(--line); }
+
+  /* ---------- hero ---------- */
+  .hero{
+    padding:96px 0 72px;
+    position:relative;
+  }
+  .hero .tag{ display:block; margin-bottom:18px; }
+  .hero h1{
+    font-family:var(--display);
+    font-weight:700;
+    font-size:clamp(40px, 7vw, 76px);
+    line-height:1.02;
+    letter-spacing:-0.01em;
+    color:var(--paper);
+    max-width:800px;
+  }
+  .hero h1 em{
+    font-style:normal;
+    color:var(--line);
+  }
+  .hero .role{
+    font-family:var(--mono);
+    font-size:15px;
+    color:var(--paper-dim);
+    margin-top:22px;
+    padding-left:24px;
+    border-left:2px solid var(--safety);
+  }
+  .hero .lede{
+    margin-top:26px;
+    max-width:560px;
+    font-size:16px;
+    color:var(--paper-dim);
+  }
+  .hero .contact-row{
+    margin-top:34px;
+    display:flex; flex-wrap:wrap; gap:14px;
+  }
+  .btn{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    padding:11px 20px;
+    border:1px solid var(--line);
+    color:var(--paper);
+    display:inline-flex; align-items:center; gap:8px;
+    transition:background .2s, color .2s;
+  }
+  .btn:hover{ background:var(--line); color:var(--blueprint-deep); }
+  .btn.solid{
+    background:var(--safety); border-color:var(--safety); color:var(--paper);
+  }
+  .btn.solid:hover{ background:var(--safety-dim); border-color:var(--safety-dim); color:var(--paper); }
+
+  /* dimension line divider, like a CAD drawing dimension */
+  .dim-divider{
+    display:flex; align-items:center; gap:10px;
+    margin:70px 0 40px;
+    color:var(--line-dim);
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+  }
+  .dim-divider::before, .dim-divider::after{
+    content:""; flex:1; height:1px; background:var(--line-dim);
+  }
+  .dim-divider::before{ margin-right:2px; }
+  .dim-divider::after{ margin-left:2px; }
+
+  /* ---------- section heads ---------- */
+  section{ padding-top:10px; }
+  .section-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    margin-bottom:34px; flex-wrap:wrap; gap:10px;
+  }
+  .section-head h2{
+    font-family:var(--display);
+    font-size:32px;
+    color:var(--paper);
+  }
+  .section-head .count{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--line-dim);
+  }
+
+  /* ---------- skills ---------- */
+  .skills-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:1px;
+    background:var(--line-dim);
+    border:1px solid var(--line-dim);
+    margin-bottom:20px;
+  }
+  .skill-cell{
+    background:var(--blueprint-deep);
+    padding:22px 20px;
+  }
+  .skill-cell .tag{ margin-bottom:12px; display:block; }
+  .skill-cell p{
+    font-size:14px;
+    color:var(--paper-dim);
+    line-height:1.7;
+  }
+
+  /* ---------- projects — title block cards ---------- */
+  .projects-grid{
+    display:grid;
+    gap:22px;
+  }
+  .project-card{
+    border:1px solid var(--line-dim);
+    background:rgba(243,241,233,0.03);
+    overflow:hidden;
+  }
+  .title-block{
+    display:grid;
+    grid-template-columns:1fr auto auto auto;
+    border-bottom:1px solid var(--line-dim);
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+  }
+  .title-block > div{
+    padding:10px 16px;
+    border-left:1px solid var(--line-dim);
+    color:var(--line-dim);
+  }
+  .title-block > div:first-child{ border-left:none; color:var(--paper-dim); }
+  .title-block .val{
+    display:block;
+    margin-top:3px;
+    color:var(--paper);
+    font-size:12px;
+    letter-spacing:0.02em;
+  }
+
+  .project-body{
+    padding:28px 26px 30px;
+    display:grid;
+    grid-template-columns:1.3fr 1fr;
+    gap:30px;
+  }
+  .project-body h3{
+    font-family:var(--display);
+    font-size:24px;
+    color:var(--paper);
+    margin-bottom:12px;
+  }
+  .project-body p{
+    color:var(--paper-dim);
+    font-size:14.5px;
+  }
+  .spec-list{
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:var(--line);
+    list-style:none;
+    display:flex; flex-direction:column; gap:9px;
+  }
+  .spec-list li{
+    padding-left:18px;
+    position:relative;
+    color:var(--paper-dim);
+  }
+  .spec-list li::before{
+    content:"—";
+    position:absolute; left:0; color:var(--safety);
+  }
+  .project-links{
+    margin-top:18px;
+    display:flex; gap:12px;
+  }
+  .project-links a{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--line);
+    border-bottom:1px solid var(--line-dim);
+    padding-bottom:2px;
+    transition:border-color .2s, color .2s;
+  }
+  .project-links a:hover{ border-color:var(--safety); color:var(--safety); }
+
+  /* secondary/minor project strip */
+  .minor-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:1px;
+    background:var(--line-dim);
+    border:1px solid var(--line-dim);
+  }
+  .minor-cell{
+    background:var(--blueprint-deep);
+    padding:20px;
+  }
+  .minor-cell .no{
+    font-family:var(--mono);
+    font-size:11px;
+    color:var(--safety);
+    display:block;
+    margin-bottom:8px;
+  }
+  .minor-cell h4{
+    font-family:var(--display);
+    font-size:16px;
+    color:var(--paper);
+    margin-bottom:6px;
+  }
+  .minor-cell p{
+    font-size:13px;
+    color:var(--paper-dim);
+  }
+
+  /* ---------- experience ---------- */
+  .exp-row{
+    display:grid;
+    grid-template-columns:200px 1fr;
+    gap:24px;
+    padding:22px 0;
+    border-top:1px solid var(--line-dim);
+  }
+  .exp-row:last-child{ border-bottom:1px solid var(--line-dim); }
+  .exp-date{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--line);
+  }
+  .exp-role h4{
+    font-family:var(--display);
+    font-size:18px;
+    color:var(--paper);
+  }
+  .exp-role .org{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--paper-dim);
+    margin-top:2px;
+    margin-bottom:10px;
+    display:block;
+  }
+  .exp-role p{ font-size:14px; color:var(--paper-dim); }
+
+  /* ---------- footer ---------- */
+  footer{
+    margin-top:90px;
+    border-top:1px solid var(--line-dim);
+    padding:36px 0 46px;
+  }
+  footer .wrap{
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;
+  }
+  footer .tag{ color:var(--line-dim); }
+  .foot-links{ display:flex; gap:20px; }
+  .foot-links a{
+    font-family:var(--mono); font-size:12px; letter-spacing:0.06em;
+    color:var(--paper-dim); transition:color .2s;
+  }
+  .foot-links a:hover{ color:var(--line); }
+
+  /* ---------- reveal on scroll ---------- */
+  .reveal{
+    opacity:0; transform:translateY(14px);
+    transition:opacity .6s ease, transform .6s ease;
+  }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  @media (prefers-reduced-motion: reduce){
+    .reveal{ opacity:1; transform:none; transition:none; }
+    html{ scroll-behavior:auto; }
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 760px){
+    nav ul{ display:none; }
+    .skills-grid, .minor-grid{ grid-template-columns:1fr; }
+    .project-body{ grid-template-columns:1fr; }
+    .title-block{ grid-template-columns:1fr; }
+    .title-block > div{ border-left:none; border-top:1px solid var(--line-dim); }
+    .title-block > div:first-child{ border-top:none; }
+    .exp-row{ grid-template-columns:1fr; }
+  }
+
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="brand">SAM<span>·</span>GARCIA</div>
+    <nav>
+      <ul>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero">
+    <span class="tag">Sheet 01 / Overview</span>
+    <h1>Samuel Garcia builds things that <em>move, sense, and hold up.</em></h1>
+    <div class="role">Mechanical Engineering &amp; Robotics — Berkeley City College, Class of 2030</div>
+    <p class="lede">
+      Research intern at the SFSU CARE Lab working on lower-limb exoskeletons. Outside the lab: drones, robotic arms,
+      and autonomous vehicles built from scratch with Arduino, Fusion 360, and whatever's on the workbench.
+    </p>
+    <div class="contact-row">
+      <a class="btn solid" href="mailto:payuski6@gmail.com">Email Me</a>
+      <a class="btn" href="https://linkedin.com/in/samuel-c-garcia" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn" href="https://github.com/Sam-payu-tech" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </section>
+
+  <div class="dim-divider">Featured Builds</div>
+
+  <section id="projects">
+    <div class="section-head">
+      <h2>Projects</h2>
+      <span class="count">02 primary / 03 supporting</span>
+    </div>
+
+    <div class="projects-grid">
+
+      <!-- PROJECT 1: DRONE -->
+      <article class="project-card reveal">
+        <div class="title-block">
+          <div>Project<span class="val">Custom Drone</span></div>
+          <div>No.<span class="val">SG—001</span></div>
+          <div>Scale<span class="val">1:1</span></div>
+          <div>Status<span class="val">Flight-tested</span></div>
+        </div>
+        <div class="project-body">
+          <div>
+            <h3>Custom Drone — Radio &amp; Flight Control</h3>
+            <p>
+              Built from the ground up: airframe, radio transceiver link, and flight control electronics.
+              Focused on getting a stable, responsive control loop running on hardware I selected and wired myself,
+              rather than starting from an off-the-shelf flight controller board.
+            </p>
+            <div class="project-links">
+              <a href="#" target="_blank" rel="noopener">View Repository →</a>
+            </div>
+          </div>
+          <ul class="spec-list">
+            <li>Custom radio transceiver integration</li>
+            <li>Flight control electronics &amp; wiring</li>
+            <li>Arduino-based control logic</li>
+            <li>Iterative tuning through test flights</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- PROJECT 2: ROBOTIC ARM/CRANE -->
+      <article class="project-card reveal">
+        <div class="title-block">
+          <div>Project<span class="val">Robotic Arm / Crane</span></div>
+          <div>No.<span class="val">SG—002</span></div>
+          <div>Scale<span class="val">1:1</span></div>
+          <div>Status<span class="val">Operational</span></div>
+        </div>
+        <div class="project-body">
+          <div>
+            <h3>Robotic Arm — Servo-Actuated Joints</h3>
+            <p>
+              Designed in Fusion 360 and built with servo-actuated joints for multi-axis movement. Covers the full
+              loop of the work I care about most: CAD design, mechanical assembly, and Arduino-driven control
+              tying it together.
+            </p>
+            <div class="project-links">
+              <a href="#" target="_blank" rel="noopener">View Repository →</a>
+            </div>
+          </div>
+          <ul class="spec-list">
+            <li>Full CAD model in Fusion 360</li>
+            <li>Multi-joint servo actuation</li>
+            <li>Arduino motion control</li>
+            <li>Designed for repeatable, controlled motion</li>
+          </ul>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="dim-divider" style="margin-top:44px;">Supporting Work</div>
+
+    <div class="minor-grid">
+      <div class="minor-cell">
+        <span class="no">SG—003</span>
+        <h4>Autonomous Obstacle-Avoidance Vehicle</h4>
+        <p>Arduino-driven vehicle using ultrasonic sensing to navigate and avoid obstacles in real time.</p>
+      </div>
+      <div class="minor-cell">
+        <span class="no">SG—004</span>
+        <h4>Custom PC Build</h4>
+        <p>Full component selection and assembly — a study in thermal, power, and spatial constraints.</p>
+      </div>
+      <div class="minor-cell">
+        <span class="no">SG—005</span>
+        <h4>Automotive Repairs</h4>
+        <p>Hands-on diagnostics and repair: thermostat replacement, starter motor, and window motor service.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="dim-divider">Technical &amp; Professional Skillset</div>
+
+  <section id="skills">
+    <div class="skills-grid">
+      <div class="skill-cell">
+        <span class="tag">Design &amp; Fabrication</span>
+        <p>Fusion 360, AutoCAD, CAD Modeling, 3D Printing</p>
+      </div>
+      <div class="skill-cell">
+        <span class="tag">Electronics &amp; Programming</span>
+        <p>Arduino, Circuit Design, Sensor Integration, Radio Transceiver Systems, Python, C++, MATLAB</p>
+      </div>
+      <div class="skill-cell">
+        <span class="tag">Leadership &amp; Delivery</span>
+        <p>Project Management, Team Leadership, Technical Documentation, Event Coordination, Budget Allocation</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="dim-divider">Professional Experience</div>
+
+  <section id="experience">
+    <div class="exp-row reveal">
+      <div class="exp-date">Jun 2026 — Present</div>
+      <div class="exp-role">
+        <h4>Research Intern</h4>
+        <span class="org">CARE Lab, San Francisco State University</span>
+        <p>Conducting biomechanics literature review on lower-limb hip exoskeletons. Authored the lab's hip exoskeleton Quick Start User Guide and trained on an 8-camera motion capture lab and force-sensor treadmill for gait data collection.</p>
+      </div>
+    </div>
+    <div class="exp-row reveal">
+      <div class="exp-date">Summer 2025 — Nov 2025</div>
+      <div class="exp-role">
+        <h4>Engineering Intern</h4>
+        <span class="org">Verdant Structural Engineers, Berkeley, CA</span>
+        <p>Digitized and reorganized 100+ architectural and structural CAD documents, establishing a standardized file management system. Gained exposure to permit sets and construction documentation.</p>
+      </div>
+    </div>
+    <div class="exp-row reveal">
+      <div class="exp-date">Fall 2025 — Present</div>
+      <div class="exp-role">
+        <h4>Founder &amp; President</h4>
+        <span class="org">ALPFA, Berkeley City College Chapter</span>
+        <p>Founded the first ALPFA chapter at BCC. Organized a panel with JP Morgan Chase and UC Berkeley Haas faculty for 40+ students; manages chapter budget and career-access programming.</p>
+      </div>
+    </div>
+    <div class="exp-row reveal">
+      <div class="exp-date">Jan 2024 — Oct 2024</div>
+      <div class="exp-role">
+        <h4>Co-Founder</h4>
+        <span class="org">3D Printing Design &amp; Manufacturing, Berkeley, CA</span>
+        <p>Co-founded a student-facing custom 3D printing business — delivered 40+ units and achieved 400% ROI through concurrent CAD design, production, and Instagram marketing.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span class="tag" id="contact">Samuel Garcia — Mechanical Engineering &amp; Robotics</span>
+    <div class="foot-links">
+      <a href="mailto:payuski6@gmail.com">payuski6@gmail.com</a>
+      <a href="tel:9512306611">951-230-6611</a>
+      <a href="https://linkedin.com/in/samuel-c-garcia" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/Sam-payu-tech" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
